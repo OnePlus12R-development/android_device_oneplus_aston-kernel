@@ -1,5 +1,5 @@
 $(warning "USE_PREBUILT_KERNEL: true, Using kernel prebuilts.")
-KERNEL_PREBUILTS_PATH := device/oneplus/aston-kernel
+KERNEL_PREBUILTS_PATH := device/oneplus/aston-c-kernel
 TARGET_NO_KERNEL_OVERRIDE := true
 BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PREBUILTS_PATH)/images/dtbo.img
 BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PREBUILTS_PATH)/images/dtbs
@@ -7,14 +7,18 @@ TARGET_PREBUILT_KERNEL := $(KERNEL_PREBUILTS_PATH)/images/kernel
 PRODUCT_COPY_FILES += \
     $(TARGET_PREBUILT_KERNEL):kernel
 
+define append-ko
+$(foreach m,$(1),$(if $(filter %.ko,$(m)),$(m),$(m).ko))
+endef
+
 BOARD_SYSTEM_KERNEL_MODULES := $(wildcard $(KERNEL_PREBUILTS_PATH)/system_dlkm/*.ko)
 BOARD_VENDOR_KERNEL_MODULES := $(wildcard $(KERNEL_PREBUILTS_PATH)/vendor_dlkm/*.ko)
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(wildcard $(KERNEL_PREBUILTS_PATH)/vendor_ramdisk/*.ko)
 BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE := $(TARGET_KERNEL_SOURCE)/modules.vendor_blocklist.msm.kalama
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := $(BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE)
-BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PREBUILTS_PATH)/system_dlkm/modules.load))
-BOARD_VENDOR_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PREBUILTS_PATH)/vendor_dlkm/modules.load))
-BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PREBUILTS_PATH)/vendor_ramdisk/modules.load))
-BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(strip $(shell cat $(KERNEL_PREBUILTS_PATH)/vendor_ramdisk/modules.load.recovery))
+BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(call append-ko,$(strip $(shell cat $(KERNEL_PREBUILTS_PATH)/system_dlkm/modules.load)))
+BOARD_VENDOR_KERNEL_MODULES_LOAD := $(call append-ko,$(strip $(shell cat $(KERNEL_PREBUILTS_PATH)/vendor_dlkm/modules.load)))
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(call append-ko,$(strip $(shell cat $(KERNEL_PREBUILTS_PATH)/vendor_ramdisk/modules.load)))
+BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(call append-ko,$(strip $(shell cat $(KERNEL_PREBUILTS_PATH)/vendor_ramdisk/modules.load.recovery)))
 BOOT_KERNEL_MODULES := $(BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD)
 SYSTEM_KERNEL_MODULES := $(BOARD_SYSTEM_KERNEL_MODULES_LOAD)
