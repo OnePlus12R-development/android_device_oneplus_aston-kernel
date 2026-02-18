@@ -460,6 +460,12 @@ alias of:N*T*Cqcom,kalama-camcc-v2 camcc_kalama
 alias of:N*T*Cqcom,kalama-camcc-v2C* camcc_kalama
 alias of:N*T*Cqcom,glink-adc qti_glink_adc
 alias of:N*T*Cqcom,glink-adcC* qti_glink_adc
+alias of:N*T*Czeku,explorer explorer
+alias of:N*T*Czeku,explorerC* explorer
+alias of:N*T*Cexplorer_spi explorer
+alias of:N*T*Cexplorer_spiC* explorer
+alias sdio:c*v1919d9066* explorer
+alias sdio:c00v0000d0000* explorer
 alias of:N*T*Cqcom,msm-fastrpc-rpmsg frpc_adsprpc
 alias of:N*T*Cqcom,msm-fastrpc-rpmsgC* frpc_adsprpc
 alias input:b*v*p*e*-e*3,*k*r*a*m*l*s*f*w* qbt_handler

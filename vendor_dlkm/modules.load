@@ -16,6 +16,7 @@ debugcc-kalama
 dmesg_dumper
 dump_reason
 ehset
+explorer
 gh_tlmm_vm_mem_access
 glink_pkt
 glink_probe
