@@ -1,5 +1,5 @@
 $(warning "USE_PREBUILT_KERNEL: true, Using kernel prebuilts.")
-KERNEL_PREBUILTS_PATH := device/oneplus/aston-kernel
+KERNEL_PREBUILTS_PATH := device/oneplus/aston-c-kernel
 TARGET_NO_KERNEL_OVERRIDE := true
 BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PREBUILTS_PATH)/images/dtbo.img
 BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PREBUILTS_PATH)/images/dtbs
